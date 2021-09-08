@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!-- saved from url=(0081)http://www.learnbymarketing.com/1065/logistic-regression-log-odds-interpretation/ -->
+<html lang="en-US" class=" js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths"><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+				    
+				    <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
+            				    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+				    <link rel="profile" href="http://gmpg.org/xfn/11">
+				    <link rel="pingback" href="http://www.learnbymarketing.com/xmlrpc.php">
+
+				   <!-- Icons font support for IE6-7  -->
+				    <!--[if lt IE 8]>
+				      <script src="http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/lte-ie7.js"></script>
+				    <![endif]-->
+				    <style type="text/css" id="customizr-inline-fonts">@font-face{font-family:genericons;src:url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/genericons-regular-webfont.eot');src:url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/genericons-regular-webfont.eot?#iefix') format('embedded-opentype'),url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/genericons-regular-webfont.woff') format('woff'),url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/genericons-regular-webfont.ttf') format('truetype'),url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/genericons-regular-webfont.svg#genericonsregular') format('svg')}@font-face{font-family:entypo;src:url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/entypo.eot);src:url(http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/entypo.eot?#iefix') format('embedded-opentype'),url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/entypo.woff') format('woff'),url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/entypo.ttf') format('truetype'),url('http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/fonts/entypo.svg#genericonsregular') format('svg')}</style><title>Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression – Learn by Marketing</title>
+<link rel="dns-prefetch" href="http://fonts.googleapis.com/">
+<link rel="dns-prefetch" href="http://s.w.org/">
+<link rel="alternate" type="application/rss+xml" title="Learn by Marketing » Feed" href="http://www.learnbymarketing.com/feed/">
+<link rel="alternate" type="application/rss+xml" title="Learn by Marketing » Comments Feed" href="http://www.learnbymarketing.com/comments/feed/">
+		<script async="" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/analytics.js"></script><script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/","svgExt":".svg","source":{"concatemoji":"http:\/\/www.learnbymarketing.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.0.6"}};
+			!function(a,b,c){function d(a,b){var c=String.fromCharCode;l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,a),0,0);var d=k.toDataURL();l.clearRect(0,0,k.width,k.height),l.fillText(c.apply(this,b),0,0);var e=k.toDataURL();return d===e}function e(a){var b;if(!l||!l.fillText)return!1;switch(l.textBaseline="top",l.font="600 32px Arial",a){case"flag":return!(b=d([55356,56826,55356,56819],[55356,56826,8203,55356,56819]))&&(b=d([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]),!b);case"emoji":return b=d([55358,56760,9792,65039],[55358,56760,8203,9792,65039]),!b}return!1}function f(a){var c=b.createElement("script");c.src=a,c.defer=c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var g,h,i,j,k=b.createElement("canvas"),l=k.getContext&&k.getContext("2d");for(j=Array("flag","emoji"),c.supports={everything:!0,everythingExceptFlag:!0},i=0;i<j.length;i++)c.supports[j[i]]=e(j[i]),c.supports.everything=c.supports.everything&&c.supports[j[i]],"flag"!==j[i]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[j[i]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(h=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",h,!1),a.addEventListener("load",h,!1)):(a.attachEvent("onload",h),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),g=c.source||{},g.concatemoji?f(g.concatemoji):g.wpemoji&&g.twemoji&&(f(g.twemoji),f(g.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel="stylesheet" id="tc-gfonts-css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/css" type="text/css" media="all">
+<link rel="stylesheet" id="wp-block-library-css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="wpProQuiz_front_style-css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/wpProQuiz_front.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="customizr-skin-css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/blue.min.css" type="text/css" media="all">
+<style id="customizr-skin-inline-css" type="text/css">
+
+                .site-title,.site-description,h1,h2,h3,.tc-dropcap {
+                  font-family : 'Fjalla One';
+                  font-weight : 400;
+                }
+
+                body,.navbar .nav>li>a {
+                  font-family : 'Cantarell';
+                  font-weight : 400;
+                }
+
+          body,.navbar .nav>li>a {
+            font-size : 15px;
+            line-height : 20px;
+          }
+
+        .tc-dropcap {
+          color: #08c;
+          float: left;
+          font-size: 75px;
+          line-height: 75px;
+          padding-right: 8px;
+          padding-left: 3px;
+        }
+
+        .skin-shadow .tc-dropcap {
+          color: #08c;
+          text-shadow: #005580 -1px 0, #005580 0 -1px, #005580 0 1px, #005580 -1px -2px;
+        }
+
+        .simple-black .tc-dropcap {
+          color: #444;
+        }
+
+.navbar .nav > li > a:first-letter {
+            font-size: 17px;
+          }
+
+.sticky-enabled .tc-shrink-on .site-logo img {
+						height:30px!important;width:auto!important
+					}
+
+					.sticky-enabled .tc-shrink-on .brand .site-title {
+						font-size:0.6em;opacity:0.8;line-height:1.2em
+					}
+
+.tc-rectangular-thumb {
+            max-height: 250px;
+            height :250px
+          }
+
+          .single .tc-rectangular-thumb {
+            max-height: 250px;
+            height :250px
+          }
+
+
+</style>
+<link rel="stylesheet" id="customizr-style-css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="fancyboxcss-css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/jquery.fancybox-1.3.4.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="easy_table_style-css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/style(1).css" type="text/css" media="all">
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/jquery.js"></script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/jquery-migrate.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var TCParams = {"FancyBoxState":"1","FancyBoxAutoscale":"1","SliderName":"","SliderDelay":"","SliderHover":"1","SmoothScroll":"linear","ReorderBlocks":"1","CenterSlides":"1","HasComments":"","LeftSidebarClass":".span3.left.tc-sidebar","RightSidebarClass":".span3.right.tc-sidebar","LoadModernizr":"1","stickyCustomOffset":"0","stickyHeader":"1","dropdowntoViewport":"0","timerOnScrollAllBrowsers":"1","extLinksStyle":"1","extLinksTargetExt":"1","dropcapEnabled":"1","dropcapWhere":{"post":"0","page":"1"},"dropcapMinWords":"50"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/tc-scripts.min.js"></script>
+<link rel="https://api.w.org/" href="http://www.learnbymarketing.com/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.learnbymarketing.com/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.learnbymarketing.com/wp-includes/wlwmanifest.xml"> 
+<link rel="prev" title="Working with arules transactions and read.transactions" href="http://www.learnbymarketing.com/1043/working-with-arules-transactions-and-read-transactions/">
+<link rel="next" title="Pyspark Joins by Example" href="http://www.learnbymarketing.com/1100/pyspark-joins-by-example/">
+<meta name="generator" content="WordPress 5.0.6">
+<link rel="canonical" href="http://www.learnbymarketing.com/1065/logistic-regression-log-odds-interpretation/">
+<link rel="shortlink" href="http://www.learnbymarketing.com/?p=1065">
+<link rel="alternate" type="application/json+oembed" href="http://www.learnbymarketing.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.learnbymarketing.com%2F1065%2Flogistic-regression-log-odds-interpretation%2F">
+<link rel="alternate" type="text/xml+oembed" href="http://www.learnbymarketing.com/wp-json/oembed/1.0/embed?url=http%3A%2F%2Fwww.learnbymarketing.com%2F1065%2Flogistic-regression-log-odds-interpretation%2F&amp;format=xml">
+<link rel="stylesheet" type="text/css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/shCore.css"><link rel="stylesheet" type="text/css" href="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/shThemeDefault.css"><style type="text/css" id="syntaxhighlighteranchor"></style>
+				    <!--Icons size hack for IE8 and less -->
+				    <!--[if lt IE 9]>
+				      <link href="http://www.learnbymarketing.com/wp-content/themes/customizr/inc/assets/css/fonts/ie8-hacks.css" rel="stylesheet" type="text/css"/>
+				    <![endif]-->
+				<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58937722-1', 'auto');
+  ga('send', 'pageview');
+
+</script></head>
+				
+	<body class="post-template-default single single-post postid-1065 single-format-standard tc-fade-hover-links skin-shadow no-navbar tc-sticky-header tc-transparent-on-scroll chrome sticky-disabled" itemscope="" itemtype="http://schema.org/WebPage">
+		
+		
+	   	<header class="tc-header clearfix row-fluid tc-tagline-off tc-title-logo-on  tc-shrink-on tc-menu-on logo-left" role="banner" style="height: auto; top: 0px;">
+			      <div class="brand span3 pull-left ">
+
+        <h1><a class="site-title" href="http://www.learnbymarketing.com/" title="Learn by Marketing | Data Mining + Marketing in Plain English">Learn by Marketing</a></h1>
+      </div> <!-- brand span3 pull-left -->
+      <div class="container outside"><h2 class="site-description">Data Mining + Marketing in Plain English</h2></div>      	<div class="navbar-wrapper clearfix span9 tc-submenu-fade tc-submenu-move tc-open-on-click left">
+        	<div class="navbar resp">
+          		<div class="navbar-inner" role="navigation">
+            		<div class="row-fluid">
+              		<div class="social-block span5"><a class="social-icon icon-feed" href="http://www.learnbymarketing.com/feed/rss/" title="Subscribe to my rss feed"></a></div><h2 class="span7 inside site-description">Data Mining + Marketing in Plain English</h2><button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><div class="nav-collapse collapse"><div class="menu-top-menu-container"><ul id="menu-top-menu-2" class="nav"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-108"><a href="http://www.learnbymarketing.com/">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-110"><a href="http://www.learnbymarketing.com/data-science-reading-list/">Data Science Reading List</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home menu-item-109"><a title="About Learn By Marketing" href="http://www.learnbymarketing.com/about-learn-by-marketing/">About</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a title="Data Mining Methods &amp; Sitemap" href="http://www.learnbymarketing.com/methods/">Methods</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-655"><a title="Data Mining Tutorials" href="http://www.learnbymarketing.com/tutorials/">Tutorials</a></li>
+</ul></div></div>          			</div>
+          		</div><!-- /.navbar-inner -->
+        	</div><!-- /.navbar resp -->
+      	</div><!-- /.navbar-wrapper -->
+    			</header>
+		<div id="tc-reset-margin-top" class="container-fluid" style="display: block; margin-top: 113px;"></div><div id="main-wrapper" class="container">
+
+    <div class="tc-hot-crumble container" role="navigation"><div class="row"><div class="span12"><div class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb"><span class="trail-begin"><a href="http://www.learnbymarketing.com/" title="Learn by Marketing" rel="home" class="trail-begin">Home</a></span> <span class="sep">»</span> <a href="http://www.learnbymarketing.com/category/programming/" title="Programming">Programming</a> <span class="sep">»</span> <a href="http://www.learnbymarketing.com/category/programming/code-in-r/" title="Code in R">Code in R</a> <span class="sep">»</span> <span class="trail-end">Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression</span></div></div></div></div>    
+    <div class="container" role="main">
+        <div class="row column-content-wrapper">
+
+                     
+        <div class="span3 left tc-sidebar no-widget-icons">
+           <div id="left" class="widget-area" role="complementary">
+                                                              </div><!-- #left or #right-->
+        </div><!--.tc-sidebar -->
+
+                        
+                <div id="content" class="span9 article-container">
+                    
+                    
+                        
+                                                                                    
+                                                                    <article id="post-1065" class="row-fluid post-1065 post type-post status-publish format-standard hentry category-code-in-r">
+                                                <header class="entry-header">
+          <h1 class="entry-title ">Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression</h1>            <div class="entry-meta">
+                This entry was posted in <a class="btn btn-mini" href="http://www.learnbymarketing.com/category/programming/code-in-r/" title="View all posts in Code in R"> Code in R </a> on <a href="http://www.learnbymarketing.com/date/2017/09/09/" title="1:22 pm" rel="bookmark"><time class="entry-date updated" datetime="2017-09-09T13:22:49+00:00">September 9, 2017</time></a> <span class="by-author">by <span class="author vcard"><a class="url fn n" href="http://www.learnbymarketing.com/author/will/" title="View all posts by Will" rel="author">Will</a></span></span>             </div><!-- .entry-meta -->
+            <hr class="featurette-divider __before_content">        </header>
+        
+          <section class="entry-content ">
+              <p><strong>Summary</strong>: Logistic regression produces coefficients that are the log odds.  Take e raised to the log odds to get the coefficients in odds.  Odds have an exponential growth rather than a linear growth for every one unit increase.  A two unit increase in x results in a squared increase from the odds coefficient.  To get a probability you put the predicted odds through the logistic function of X / (1 + X).<br>
+<span id="more-1065"></span></p>
+<p><img src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/logistic-log-odds-prob-iris.png" alt="Log Odds is a straight horizontal line. Odds is a flat line until reaching 4.5 then it&#39;s exponential. Probability looks like a t distribution." width="669" height="662" class="aligncenter size-full wp-image-1066" srcset="http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-log-odds-prob-iris.png 669w, http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-log-odds-prob-iris-300x297.png 300w" sizes="(max-width: 669px) 100vw, 669px"></p>
+<p>Logistic Regression is related to Linear Regression by its use of the linear equation inside the logistic function.</p>
+<p>It’s tempting to interpret them the same way but every stats 102 class will tell that you can’t!  I took it upon myself to better understand what exactly is happening in logistic regression and how to better interpret the coefficients.  Using the iris data set and a quick R program, I will show the differences between log odds, odds, and probability.  Full disclosure, I had to open up three textbooks, and at least 12 webpages to gather enough understanding.  Links to my favorite pages at the bottom.</p>
+<h3>Setting up the Data</h3>
+<div><div id="highlighter_469919" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r functions">data</code><code class="r plain">(iris)</code></div><div class="line number2 index1 alt1">&nbsp;</div><div class="line number3 index2 alt2"><code class="r comments"># Turn this into a binary setosa vs not setosa problem</code></div><div class="line number4 index3 alt1"><code class="r plain">iris$Species &lt;- </code><code class="r functions">as.factor</code><code class="r plain">(</code><code class="r functions">as.numeric</code><code class="r plain">(iris$Species == </code><code class="r string">'setosa'</code><code class="r plain">))</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="r comments"># Create a logistic regression model</code></div><div class="line number7 index6 alt2"><code class="r plain">model &lt;- </code><code class="r functions">glm</code><code class="r plain">(Species~Sepal.Width, data=iris, family=</code><code class="r string">'binomial'</code><code class="r plain">)</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="r comments"># Create a sequence of data in a data.frame to use for predictions</code></div><div class="line number10 index9 alt1"><code class="r plain">test_data &lt;- </code><code class="r functions">data.frame</code><code class="r plain">(Sepal.Width = </code><code class="r functions">seq</code><code class="r plain">(0.1, 5.5, by=0.1))</code></div></div></td></tr></tbody></table></div></div>
+<p>First step we need to get the iris data set loaded and transform the Species variable to be binary.  We could do multinomial logistic regression but that makes it more completed and doesn’t help with explaining the difference between log odds, odds, and probabilities too much.</p>
+<p>To create a logistic regression model in R you use the <code>glm</code> function and the binomial family.  Lastly, a sequence of numbers in a data.frame is created.  This sequence will be all the values that the model will predict on to see the full spectrum of what is happening behind log odds, odds, and probabilities. </p>
+<h2>Log Odds</h2>
+<p><img src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/logistic-log-odds2-iris.png" alt="Logistic log odds increases are the same as the coefficient" width="571" height="190" class="aligncenter size-full wp-image-1070" srcset="http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-log-odds2-iris.png 571w, http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-log-odds2-iris-300x100.png 300w" sizes="(max-width: 571px) 100vw, 571px"></p>
+<ul>
+<li>The logistic regression coefficients are <strong>log odds</strong>.</li>
+<li>Just like in regression, as you increase the input variable by one unit, the log odds increases by one unit</li>
+<li>The difference between each data point (right plot) is the same as the coefficient.</li>
+</ul>
+<div><div id="highlighter_699650" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r comments"># Predict Log Odds Value</code></div><div class="line number2 index1 alt1"><code class="r plain">log_odds_pred &lt;-</code><code class="r functions">predict</code><code class="r plain">(model, newdata=test_data)</code></div><div class="line number3 index2 alt2"><code class="r functions">diff</code><code class="r plain">(log_odds_pred)</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2"><code class="r plain">model$coefficients </code><code class="r comments">#in Log Odds</code></div></div></td></tr></tbody></table></div></div>
+<p>The predict function simply takes the values of our test_data data.frame and inserts them into the learned logistic regression formula.  You can see the model coefficients by using <code>model$coefficients</code>.</p>
+<p>If you are comfortable with log odds, go no further!  If you can explain what a one unit increase in the log odds means to your manager, you’re all set here.  For those who still need some assistance read on.</p>
+<h2>Odds</h2>
+<p><img src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/logistic-odds-iris.png" alt="Odds from a Logistic Regression Model" width="571" height="244" class="aligncenter size-full wp-image-1071" srcset="http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-odds-iris.png 571w, http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-odds-iris-300x128.png 300w" sizes="(max-width: 571px) 100vw, 571px"></p>
+<ul>
+<li>The ‘odds’ are e (euler’s number) raised to log odds value.</li>
+<li>If you remember college algebra: e^(log(x)) = x</li>
+<li>From the plots above, you can see that as Sepal.Width increases, so does the odds of it being Setosa.</li>
+<li>The difference plot doesn’t show a different pattern since it’s a fast growing exponential trend.</li>
+</ul>
+<div><div id="highlighter_373695" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r plain">odds_pred &lt;- </code><code class="r functions">exp</code><code class="r plain">(log_odds_pred)</code></div><div class="line number2 index1 alt1"><code class="r functions">diff</code><code class="r plain">(odds_pred)</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="r functions">exp</code><code class="r plain">(model$coefficients[2]) </code><code class="r comments">#120.2574 </code></div><div class="line number5 index4 alt2"><code class="r plain">odds_pred[11]/odds_pred[1] </code><code class="r comments">#120.2574 </code></div></div></td></tr></tbody></table></div></div>
+<p>In this example, the odds are interpreted as # of setosa appearing at this sepal width for every one non-setosa.  Logistic regression estimates the odds / the log odds since it does not take on a bounded value (e.g. between zero and one).  It’s hard to tell in the example but if you’re following along, you’ll see that at 3.3 sepal width, the odds become greater than one.</p>
+<ul>
+<li>Odds less than 1 mean there’s a negative relationship between the independent and dependent variables.(Pr &lt; 0.5)</li>
+<li>Odds equal to 1 mean there’s no relationship (it’s 50/50). (Pr = 0.5)</li>
+<li>Odds greater than 1 mean there’s a direct positive relationship. (Pr &gt; 0.5)</li>
+</ul>
+<p>To better understand the interpretation of odds on a continuous variable, we can look at the the exponentiated sepal width coefficient and the quotient of the 11th (1.1)  and the 1st (0.1) odds prediction.  They’re the same.  But why?</p>
+<p>For a continuous variable, for every one unit increase in the X variable, there is a relative and exponential effect.</p>
+<ul>
+<li><strong>Odds are relative, so you need a baseline to compare against</strong>.</li>
+<li>If you knew the odds at sepal width = 2 were 0.00215565 and the exponentiated coefficient was 120.2574…
+<ul>
+<li>You can say at sepal width = 3, the odds are 122.2574 times more likely to be setosa than at sepal.width = 2.</li>
+<li>The odds at sepal width 3 are 0.2592329 which is equal to 0.00215565 * 120.2574.</li>
+<li>The odds at sepal width 4 are 120.2574 times greater than at width 3 but are <strong>120.2574 squared (14461.85) times greater than width 2</strong>.</li>
+<li>The equation for this might look like: Base_Odds(i) * Odds_Coefficient^(k-i) | in the example above, k would be 4 and i would be 2.</li>
+</ul>
+</li><li>With the example above, you can see that every unit increase isn’t a simple multiplication like linear regression.</li>
+<li>Instead, <strong>it’s an exponential increase relative to some baseline unit</strong>.</li>
+</ul>
+<p>So if you are going to interpret the coefficients, you’ll have to say a one unit increase in sepal width is a ~4.79 increase in the <strong>log odds</strong> or a ~120.26 increase in the <strong>odds</strong> of being setosa.  Personally, numbers this large value makes it hard to explain.  Odds that are less than 10 would be more palatable – wrap your head around 4x larger vs 48x larger; the latter is hard to fathom.  In this case, I might use a common value as an example and a one unit increase and the plots above to illustrate the interpretation.</p>
+<p>Perhaps the best area to report and still interpret is the probability.</p>
+<h2>Probability</h2>
+<p><img src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/logistic-prob-iris.png" alt="Logistic regression probabilities follows a logistic curve and the differences form, what looks like a t distribution" width="571" height="249" class="aligncenter size-full wp-image-1073" srcset="http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-prob-iris.png 571w, http://www.learnbymarketing.com/wp-content/uploads/2017/09/logistic-prob-iris-300x131.png 300w" sizes="(max-width: 571px) 100vw, 571px"></p>
+<ul>
+<li>Probability is calculated by entering the odds into the logistic or “logit” function</li>
+<li>The formula is… <strong>x / (1 + x)</strong> where x is a given odd.</li>
+<li>In Generalized Linear Model terms, this is the canonical <a href="https://en.wikipedia.org/wiki/Generalized_linear_model#Link_function" target="_blank">link function</a><span class="tc-external"></span> for a binomial distribution.</li>
+<li>Notice how the probabilities follow a sigmoid / logistic curve (left plot) and are bound between zero and one.</li>
+<li>Based on the differences, you can see how it quickly increases as it approaches the center of the logistic curve (~3.3).</li>
+<li>Then the growth of the probabilities decreases since it’s bounded to a maximum of one.</li>
+</ul>
+<div><div id="highlighter_980852" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r plain">probs &lt;- odds_pred / (1+odds_pred)</code></div><div class="line number2 index1 alt1"><code class="r comments"># or using the predict function, the model, and the test data</code></div><div class="line number3 index2 alt2"><code class="r plain">resp_pred &lt;-</code><code class="r functions">predict</code><code class="r plain">(model, newdata=test_data, type=</code><code class="r string">'response'</code><code class="r plain">)</code></div></div></td></tr></tbody></table></div></div>
+<p>It’s important to note that the predict function will do all of this work to get down to probabilities if you use the <code>type='response'</code> parameter and argument.  The predict function knows to use the logit link function since we declared the family was binomial and logit is the default link.  You can verify that with <code>model$family</code>.  Using <code>predict</code> is much more convenient than doing all the math yourself.</p>
+<p>There we have it!  We’ve gone from log odds coefficients, to odds (using euler’s number), to probabilities (using the logistic / logit / link function).  Hopefully now you can remember that when interpreting the logistic regression coefficients you should…</p>
+<ul>
+<li>Take e raised to the log odds coefficient to get the odds <code>exp(model$coefficients)</code></li>
+<li>Interpret the odds as an exponential trend.</li>
+<li>Say sepal width = 2 has 120 times higher odds to be setosa than sepal width = 1.</li>
+<li>Bring some example probabilities.  For example:
+<ul>
+<li>Sepal width = 1 has a less than 0.00% probability of being setosa.</li>
+<li>sepal width 3.3 has a 52% probability of being setosa.</li>
+</ul>
+</li>
+</ul>
+<h3>Further Reading and Full Code</h3>
+<p>For those interested in additional interpretations, here are some of the most useful pages I found:</p>
+<ul>
+<li><a href="http://www.theanalysisfactor.com/why-use-odds-ratios/" target="_blank">Why use Odds Ratios?</a><span class="tc-external"></span> from the Analysis Factor blog</li>
+<li><a href="https://www.ctspedia.org/do/view/CTSpedia/OddsTerm" target="_blank">Calculating odds and probabilities</a><span class="tc-external"></span> from a Clinical Trial knowledge base</li>
+<li><a href="https://sebastiansauer.github.io/convert_logit2prob/" target="_blank">Converting Logit to Probability</a><span class="tc-external"></span> by Sebastian Sauer of FOM University</li>
+<li><a href="http://www.statisticssolutions.com/theres-nothing-odd-about-the-odds-ratio-interpreting-binary-logistic-regression/" target="_blank">Interpreting Binary Logistic Regression</a><span class="tc-external"></span> from Statistics Solutions</li>
+</ul>
+<p>If you’re interested in recreating these results, here’s the full code including plots.</p>
+<div><div id="highlighter_181681" class="syntaxhighlighter  r"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div><div class="line number34 index33 alt1">34</div><div class="line number35 index34 alt2">35</div><div class="line number36 index35 alt1">36</div><div class="line number37 index36 alt2">37</div><div class="line number38 index37 alt1">38</div><div class="line number39 index38 alt2">39</div><div class="line number40 index39 alt1">40</div><div class="line number41 index40 alt2">41</div><div class="line number42 index41 alt1">42</div><div class="line number43 index42 alt2">43</div><div class="line number44 index43 alt1">44</div><div class="line number45 index44 alt2">45</div><div class="line number46 index45 alt1">46</div><div class="line number47 index46 alt2">47</div><div class="line number48 index47 alt1">48</div><div class="line number49 index48 alt2">49</div><div class="line number50 index49 alt1">50</div><div class="line number51 index50 alt2">51</div><div class="line number52 index51 alt1">52</div><div class="line number53 index52 alt2">53</div><div class="line number54 index53 alt1">54</div><div class="line number55 index54 alt2">55</div><div class="line number56 index55 alt1">56</div><div class="line number57 index56 alt2">57</div><div class="line number58 index57 alt1">58</div><div class="line number59 index58 alt2">59</div><div class="line number60 index59 alt1">60</div><div class="line number61 index60 alt2">61</div><div class="line number62 index61 alt1">62</div><div class="line number63 index62 alt2">63</div><div class="line number64 index63 alt1">64</div><div class="line number65 index64 alt2">65</div><div class="line number66 index65 alt1">66</div><div class="line number67 index66 alt2">67</div><div class="line number68 index67 alt1">68</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="r comments"># Setup ####</code></div><div class="line number2 index1 alt1"><code class="r functions">data</code><code class="r plain">(iris)</code></div><div class="line number3 index2 alt2">&nbsp;</div><div class="line number4 index3 alt1"><code class="r plain">iris$Species &lt;- </code><code class="r functions">as.factor</code><code class="r plain">(</code><code class="r functions">as.numeric</code><code class="r plain">(iris$Species == </code><code class="r string">'setosa'</code><code class="r plain">))</code></div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="r comments"># Create a logistic regression model</code></div><div class="line number7 index6 alt2"><code class="r plain">model &lt;- </code><code class="r functions">glm</code><code class="r plain">(Species~Sepal.Width, data=iris, family=</code><code class="r string">'binomial'</code><code class="r plain">)</code></div><div class="line number8 index7 alt1">&nbsp;</div><div class="line number9 index8 alt2"><code class="r comments"># Create a sequence of data in a data.frame to use for predictions</code></div><div class="line number10 index9 alt1"><code class="r plain">test_data &lt;- </code><code class="r functions">data.frame</code><code class="r plain">(Sepal.Width = </code><code class="r functions">seq</code><code class="r plain">(0.1, 5.5, by=0.1))</code></div><div class="line number11 index10 alt2">&nbsp;</div><div class="line number12 index11 alt1"><code class="r comments"># Log Odds ####</code></div><div class="line number13 index12 alt2"><code class="r comments"># Predict Log Odds Value</code></div><div class="line number14 index13 alt1"><code class="r plain">log_odds_pred &lt;-</code><code class="r functions">predict</code><code class="r plain">(model, newdata=test_data)</code></div><div class="line number15 index14 alt2"><code class="r functions">diff</code><code class="r plain">(log_odds_pred)</code></div><div class="line number16 index15 alt1">&nbsp;</div><div class="line number17 index16 alt2"><code class="r plain">model$coefficients </code><code class="r comments">#in Log Odds</code></div><div class="line number18 index17 alt1">&nbsp;</div><div class="line number19 index18 alt2"><code class="r functions">par</code><code class="r plain">(mfrow=</code><code class="r functions">c</code><code class="r plain">(1,2))</code></div><div class="line number20 index19 alt1"><code class="r functions">plot</code><code class="r plain">(x=test_data$Sepal.Width, y=log_odds_pred,</code></div><div class="line number21 index20 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">"Sepal.Width"</code><code class="r plain">,ylab=</code><code class="r string">'Prediction Ouput'</code><code class="r plain">,</code></div><div class="line number22 index21 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Log Odds Prediction over 0.1 thru 5.4'</code><code class="r plain">)</code></div><div class="line number23 index22 alt2"><code class="r functions">plot</code><code class="r plain">(x=test_data[-1,], y=</code><code class="r functions">round</code><code class="r plain">(</code><code class="r functions">diff</code><code class="r plain">(log_odds_pred), 7),</code></div><div class="line number24 index23 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">'Sepal.Width'</code><code class="r plain">, ylab=</code><code class="r string">'Log Odds Difference'</code><code class="r plain">,</code></div><div class="line number25 index24 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Log Odds Difference from\nPrevious 0.1 Sepal.Width'</code><code class="r plain">)</code></div><div class="line number26 index25 alt1">&nbsp;</div><div class="line number27 index26 alt2"><code class="r comments"># Odds ####</code></div><div class="line number28 index27 alt1"><code class="r plain">odds_pred &lt;- </code><code class="r functions">exp</code><code class="r plain">(log_odds_pred)</code></div><div class="line number29 index28 alt2"><code class="r functions">diff</code><code class="r plain">(odds_pred)</code></div><div class="line number30 index29 alt1">&nbsp;</div><div class="line number31 index30 alt2"><code class="r functions">exp</code><code class="r plain">(model$coefficients[2]) </code><code class="r comments">#120.2574 </code></div><div class="line number32 index31 alt1"><code class="r plain">odds_pred[11]/odds_pred[1] </code><code class="r comments">#120.2574 </code></div><div class="line number33 index32 alt2">&nbsp;</div><div class="line number34 index33 alt1"><code class="r functions">par</code><code class="r plain">(mfrow=</code><code class="r functions">c</code><code class="r plain">(1,2))</code></div><div class="line number35 index34 alt2"><code class="r functions">plot</code><code class="r plain">(x=test_data$Sepal.Width, y=odds_pred,</code></div><div class="line number36 index35 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">"Sepal.Width"</code><code class="r plain">,ylab=</code><code class="r string">'Prediction Ouput'</code><code class="r plain">,</code></div><div class="line number37 index36 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Odds Prediction over 0.1 thru 5.4'</code><code class="r plain">)</code></div><div class="line number38 index37 alt1"><code class="r functions">plot</code><code class="r plain">(x=test_data[-1,],y=</code><code class="r functions">diff</code><code class="r plain">(odds_pred),</code></div><div class="line number39 index38 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">'Sepal.Width'</code><code class="r plain">,ylab=</code><code class="r string">'Odds Difference'</code><code class="r plain">,</code></div><div class="line number40 index39 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Odds Difference from\nPrevious 0.1 Sepal.Width'</code><code class="r plain">)</code></div><div class="line number41 index40 alt2">&nbsp;</div><div class="line number42 index41 alt1"><code class="r comments"># Probabilities ####</code></div><div class="line number43 index42 alt2"><code class="r plain">prob &lt;- odds_pred / (1+odds_pred)</code></div><div class="line number44 index43 alt1"><code class="r comments"># or using the predict function, the model, and the test data</code></div><div class="line number45 index44 alt2"><code class="r plain">resp_pred &lt;-</code><code class="r functions">predict</code><code class="r plain">(model, newdata=test_data, type=</code><code class="r string">'response'</code><code class="r plain">)</code></div><div class="line number46 index45 alt1">&nbsp;</div><div class="line number47 index46 alt2"><code class="r functions">par</code><code class="r plain">(mfrow=</code><code class="r functions">c</code><code class="r plain">(1,2))</code></div><div class="line number48 index47 alt1"><code class="r functions">plot</code><code class="r plain">(x=test_data$Sepal.Width, y=prob,</code></div><div class="line number49 index48 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">"Sepal.Width"</code><code class="r plain">,ylab=</code><code class="r string">'Probability'</code><code class="r plain">,</code></div><div class="line number50 index49 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Probability Prediction over 0.1 thru 5.4'</code><code class="r plain">)</code></div><div class="line number51 index50 alt2"><code class="r functions">plot</code><code class="r plain">(x=test_data[-1,], y=</code><code class="r functions">diff</code><code class="r plain">(prob),</code></div><div class="line number52 index51 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">'Sepal.Width'</code><code class="r plain">,ylab=</code><code class="r string">'Probability Difference'</code><code class="r plain">,</code></div><div class="line number53 index52 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Probability Difference from\nPrevious 0.1 Sepal.Width'</code><code class="r plain">)</code></div><div class="line number54 index53 alt1">&nbsp;</div><div class="line number55 index54 alt2"><code class="r comments"># Head Plot ####</code></div><div class="line number56 index55 alt1"><code class="r functions">par</code><code class="r plain">(mfrow=</code><code class="r functions">c</code><code class="r plain">(2,2))</code></div><div class="line number57 index56 alt2"><code class="r functions">plot</code><code class="r plain">(x=test_data[-1,], y=</code><code class="r functions">round</code><code class="r plain">(</code><code class="r functions">diff</code><code class="r plain">(log_odds_pred), 7),</code></div><div class="line number58 index57 alt1"><code class="r spaces">&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">'Sepal.Width'</code><code class="r plain">, ylab=</code><code class="r string">'Log Odds Difference'</code><code class="r plain">,</code></div><div class="line number59 index58 alt2"><code class="r spaces">&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Log Odds Difference from\nPrevious 0.1 Sepal.Width'</code><code class="r plain">)</code></div><div class="line number60 index59 alt1"><code class="r functions">plot</code><code class="r plain">(x=test_data[-1,],y=</code><code class="r functions">diff</code><code class="r plain">(odds_pred),</code></div><div class="line number61 index60 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">'Sepal.Width'</code><code class="r plain">,ylab=</code><code class="r string">'Odds Difference'</code><code class="r plain">,</code></div><div class="line number62 index61 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Odds Difference from\nPrevious 0.1 Sepal.Width'</code><code class="r plain">)</code></div><div class="line number63 index62 alt2"><code class="r functions">plot</code><code class="r plain">(x=test_data[-1,], y=</code><code class="r functions">diff</code><code class="r plain">(resp_pred),</code></div><div class="line number64 index63 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">xlab=</code><code class="r string">'Sepal.Width'</code><code class="r plain">,ylab=</code><code class="r string">'Probability Difference'</code><code class="r plain">,</code></div><div class="line number65 index64 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Probability Difference from\nPrevious 0.1 Sepal.Width'</code><code class="r plain">)</code></div><div class="line number66 index65 alt1"><code class="r functions">boxplot</code><code class="r plain">(x=iris$Sepal.Width, iris$Species,</code></div><div class="line number67 index66 alt2"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">names = </code><code class="r functions">c</code><code class="r plain">(</code><code class="r string">'Setosa'</code><code class="r plain">,</code><code class="r string">'Not Setosa'</code><code class="r plain">),ylab=</code><code class="r string">'Sepal.Width'</code><code class="r plain">,</code></div><div class="line number68 index67 alt1"><code class="r spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="r plain">main=</code><code class="r string">'Sepal.Width by Species'</code><code class="r plain">)</code></div></div></td></tr></tbody></table></div></div>
+                        </section><!-- .entry-content -->
+
+                                            </article>
+                                
+                            
+                        
+                    
+<div id="comments" class="comments-area">
+	</div><!-- #comments .comments-area -->
+        
+          <hr class="featurette-divider __after_loop">
+          <nav id="nav-below" class="navigation" role="navigation">
+
+              <h3 class="assistive-text">
+                Post navigation              </h3>
+
+              <ul class="pager">
+                                  <li class="previous">
+                    <span class="nav-previous">
+                      <a href="http://www.learnbymarketing.com/1043/working-with-arules-transactions-and-read-transactions/" rel="prev"><span class="meta-nav">←</span> Working with arules transactions and read.transactions</a>                    </span>
+                  </li>
+                                                  <li class="next">
+                    <span class="nav-next">
+                        <a href="http://www.learnbymarketing.com/1100/pyspark-joins-by-example/" rel="next">Pyspark Joins by Example <span class="meta-nav">→</span></a>                    </span>
+                  </li>
+                              </ul>
+
+          </nav><!-- #nav-below .navigation -->
+
+        
+        
+                </div><!--.article-container -->
+
+           
+        </div><!--.row -->
+    </div><!-- .container role: main -->
+
+    
+</div><!--#main-wrapper"-->
+
+		<!-- FOOTER -->
+		<footer id="footer" class="">
+		 		    				 <div class="colophon">
+			 	<div class="container">
+			 		<div class="row-fluid">
+					    <div class="span4 social-block pull-left"><span class="tc-footer-social-links-wrapper"><a class="social-icon icon-feed" href="http://www.learnbymarketing.com/feed/rss/" title="Subscribe to my rss feed"></a></span></div><div class="span4 credits"><p>· © 2019 <a href="http://www.learnbymarketing.com/" title="Learn by Marketing" rel="bookmark">Learn by Marketing</a> · Designed by <a href="http://themesandco.com/">Themes &amp; Co</a> ·</p></div><div class="span4 backtop"><p class="pull-right"><a class="back-to-top" href="http://www.learnbymarketing.com/1065/logistic-regression-log-odds-interpretation/#">Back to top</a></p></div>	      			</div><!-- .row-fluid -->
+	      		</div><!-- .container -->
+	      	</div><!-- .colophon -->
+	    			</footer>
+		<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/shCore.js"></script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/shBrushR.js"></script>
+<script type="text/javascript">
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.learnbymarketing.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.9b";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.learnbymarketing.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.9b";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/comment-reply.min.js"></script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/core.min.js"></script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/modernizr.min.js"></script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/holder.min.js"></script>
+<script type="text/javascript" src="./Why Saying a ‘One Unit Increase’ Doesn’t Work in Logistic Regression_files/wp-embed.min.js"></script>
+<div class="tc-btt-wrapper"><i class="btt-arrow" style="color:#08c"></i></div>	
+	<div id="fancybox-tmp"></div><div id="fancybox-loading"><div></div></div><div id="fancybox-overlay"></div><div id="fancybox-wrap"><div id="fancybox-outer"><div class="fancybox-bg" id="fancybox-bg-n"></div><div class="fancybox-bg" id="fancybox-bg-ne"></div><div class="fancybox-bg" id="fancybox-bg-e"></div><div class="fancybox-bg" id="fancybox-bg-se"></div><div class="fancybox-bg" id="fancybox-bg-s"></div><div class="fancybox-bg" id="fancybox-bg-sw"></div><div class="fancybox-bg" id="fancybox-bg-w"></div><div class="fancybox-bg" id="fancybox-bg-nw"></div><div id="fancybox-content"></div><a id="fancybox-close"></a><div id="fancybox-title"></div><a href="javascript:;" id="fancybox-left"><span class="fancy-ico" id="fancybox-left-ico"></span></a><a href="javascript:;" id="fancybox-right"><span class="fancy-ico" id="fancybox-right-ico"></span></a></div></div></body></html>
