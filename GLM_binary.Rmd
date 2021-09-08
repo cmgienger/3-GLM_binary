@@ -2,8 +2,6 @@
 title: 'GLM for Data With Non-Normal Distributions: Binary and Binomial Data'
 subtitle: Hector 2015 Chapter 9
 output:
-  pdf_document:
-    toc: yes
   html_notebook:
     toc: yes
 ---
@@ -34,7 +32,7 @@ We introduced GLMs in Chapter 8. The key advance over least squares linear
 models is that we can use the link and variance functions to model the
 mean and variability separately. 
 
-In our analysis of the timber hardness data
+In our analysis of the timber hardness data (janka)
 we used a square-root link function to linearize the relationship and the
 gamma distribution to model the way in which the variance increased as a
 function of the mean.
@@ -62,9 +60,9 @@ we would expect to need some sort of ‘S-shaped’ relationship to model the
 mean while the variance will decrease towards both extremes (0,1) and be
 greatest in between.
 
-The default (canonical) link function in binomial GLMs is the logistic transformation.
+**The default (canonical) link function in binomial GLMs is the logistic transformation.**
 
-![](images/Box9.2.jpeg)
+![](images/Box9_2.jpeg)
 
 The logistic transformation converts proportions to logits. ***Logits are the natural log of the odds and the odds are the ratio of successes to failures.*** If we had a binomial denominator of ten with five successes to five failures then the logit would be log(5/5) = 0.
 
@@ -227,7 +225,7 @@ display(fit.5) # model numbering from Gelman and Hill
 ```
 The coefficients are all given on the **logit scale**. <span style="color:blue">Back-transforming the estimate for the intercept (using the `invlogit()` function displayed below) gives the probability of switching</span>—because we have centered both variables this is the probability of switching at average arsenic levels and average distance to the nearest safe well:
 
-```{r invlogit}
+```{r invlogit function}
 invlogit <- function(x) {1 / ( 1+exp(-x) ) } 
 invlogit(coef(fit.5)) #for interpreting centered data only?
 exp(coef(fit.5)) #more books say use exponential; maybe only for poisson
