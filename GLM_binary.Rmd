@@ -140,7 +140,7 @@ Example:  The binary response examining whether or not people switch the well fr
 
 ```{r Wells: Chart to see raw fit}
 
-wells <- read.delim("Binary_Wells.txt")
+wells <- read.delim("data/Binary_Wells.txt")
 ggplot(wells,aes(dist,switch)) +geom_point() +
   geom_smooth() +
   xlab ("Distance to Nearest Well") +
@@ -183,7 +183,7 @@ confint(fit.1)
 It does indeed seem to be the case that the further away an alternative well
 is, the less likely people are to switch to it.
 
-Gelman and Hill promote a rough rule of thumb for interpreting the slope of the logistic regression: the ‘divide by four rule’. Dividing the slope coefficient for the logistic regression slope by four will give us an approximate estimate for the maximum predicted effect on the response of a unit change in the predictor.
+Gelman and Hill promote a [rough rule of thumb for interpreting the slope of the logistic regression](http://econometricsense.blogspot.com/2016/05/divide-by-4-rule-for-marginal-effects.html): the ‘divide by four rule’. Dividing the slope coefficient for the logistic regression slope by four will give us an approximate estimate for the maximum predicted effect on the response of a unit change in the predictor.
 
 In this case, a difference in distance of 100 m corresponds to a decrease in the probability of switching of 15% since –0.62/4 = –0.15. The figures show the average probability of switching with a 95% CI.
 
