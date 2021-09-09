@@ -46,7 +46,7 @@ useless).
 **Count Data**: whole integers; 0, 1, 2, 3 etc. and **binomial count**; eight deaths from twelve organisms (8 failures, 4 successes)
 
 We will begin with a small data set from an experiment looking at the
-mortality of batches of the flour beetle *Tribolium confusa* exposed to different doses of a pesticide.
+mortality of batches of the flour beetle *Tribolium confusa* exposed to different doses of a pesticide (carbon disulphide).
 
 ```{r Beetle Binomial}
 data(beetle) # from AICcmodavg
@@ -144,7 +144,8 @@ wells <- read.delim("data/Binary_Wells.txt")
 ggplot(wells,aes(dist,switch)) +geom_point() +
   geom_smooth() +
   xlab ("Distance to Nearest Well") +
-  ylab ("Probability of Switching")
+  ylab ("Probability of Switching") +
+  labs(title="1=safe level of arsenic, 0=unsafe level")
 ```
 
 It looks like the probability of switching declines with distance, as we
@@ -189,11 +190,10 @@ In this case, a difference in distance of 100 m corresponds to a decrease in the
 
 ```{r Figure 9.5}
 ggplot(wells, aes(dist,switch)) +
-         geom_point() +
-         geom_smooth(method="glm", method.args=list(family="binomial"(link="logit"))) + 
-         xlab ("Distance to Nearest Well") +
-         ylab ("Probability of Switching")
-
+  geom_point() +
+  geom_smooth(method="glm", method.args=list(family="binomial"(link="logit"))) + 
+  xlab ("Distance to Nearest Well") +
+  ylab ("Probability of Switching")
 ```
 
 We can look at the effect of arsenic concentration in a similar way:
@@ -258,7 +258,7 @@ summary(fit.5)
 
 * We can analyse binary data using a binomial GLM. However, we do not use the ratio of the residual deviance to residual DF to diagnose over- or underdispersion.
 
-* We can use the `binnedplot()` function from the arm package to examine the binned residuals
+* We can use the `binnedplot()` function from the `arm` package to examine the binned residuals
 
 * Since the GLM uses the binomial distribution and the logit link function, the analysis is interpreted in a similar way to the GLM of binomial count data.
 
