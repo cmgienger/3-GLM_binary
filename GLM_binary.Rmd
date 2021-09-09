@@ -2,10 +2,13 @@
 title: 'GLM for Data With Non-Normal Distributions: Binary and Binomial Data'
 subtitle: Hector 2015 Chapter 9
 output:
+  html_document:
+    toc: yes
+    df_print: paged
   html_notebook:
     toc: yes
 ---
-```{r setup2, include=FALSE}
+```{r setup, include=FALSE}
 options(scipen = 1, digits = 2) #changes outputs to to decimal places.
 knitr::opts_chunk$set(echo = TRUE)
 packages_needed <- c("ggplot2", # graphics
@@ -77,6 +80,10 @@ data.
 
 ```{r}
 m1 <- glm(cbind(Number_killed, Number_survived) ~ Dose, data= beetle, family= binomial)
+```
+
+
+```{r}
 #wr <- glm(Mortality_rate~Dose, data= beetle, family= binomial, weight= Number_tested)
 #alternative by weighted regression
 ```
@@ -141,11 +148,12 @@ Example:  The binary response examining whether or not people switch the well fr
 ```{r Wells: Chart to see raw fit}
 
 wells <- read.delim("data/Binary_Wells.txt")
-ggplot(wells,aes(dist,switch)) +geom_point() +
+ggplot(wells,aes(dist,switch)) +
+  geom_point() +
   geom_smooth() +
   xlab ("Distance to Nearest Well") +
   ylab ("Probability of Switching") +
-  labs(title="1=safe level of arsenic, 0=unsafe level")
+  labs(title="Raw Fit: 1=safe level of arsenic, 0=unsafe level")
 ```
 
 It looks like the probability of switching declines with distance, as we
