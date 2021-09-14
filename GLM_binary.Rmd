@@ -147,7 +147,7 @@ Example:  The binary response examining whether or not people switch the well fr
 
 ```{r Wells: Chart to see raw fit}
 
-wells <- read.delim("data/Binary_Wells.txt")
+wells <- read.csv("data/Binary_Wells.csv")
 ggplot(wells,aes(dist,switch)) +
   geom_point() +
   geom_smooth() +
