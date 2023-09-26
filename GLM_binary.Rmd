@@ -79,6 +79,7 @@ link function and binomial distribution take account of the properties and const
 
 ```{r}
 m1 <- glm(cbind(Number_killed, Number_survived) ~ Dose, data= beetle, family= binomial)
+#cbind makes paired data from killed and survived data columns to model against dose
 ```
 
 ```{r}

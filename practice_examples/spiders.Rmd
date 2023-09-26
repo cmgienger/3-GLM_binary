@@ -28,7 +28,7 @@ As an example of simple logistic regression, Suzuki et al. (2006) measured sand 
 
 One goal of this study would be to determine whether there was a relationship between sand grain size and the presence or absence of the species, in hopes of understanding more about the biology of the spiders. Because this species is endangered, another goal would be to find an equation that would predict the probability of a wolf spider population surviving on a beach with a particular sand grain size, to help determine which beaches to reintroduce the spider to.
 
-```{r import data}
+```{r import data, message=FALSE, warning=FALSE}
 library(readr)
 spiders <- read_csv("../practice_examples/spiders.csv")
 ```
@@ -66,7 +66,7 @@ confint(model_spider)
 Interpret the slope of the logistic regression. Dividing the slope coefficient by four will give us an approximate estimate for the maximum predicted effect on the response of a unit change in the predictor. Slope of grainsize variable is 5.1.
 \
 \
-In this case, a difference in 1 unit of grain size (mm) corresponds to a increase in the probability of spider presence of 128% since 5.1/4 = 1.28. (*100 to convert to percent=128%). Notice the scale of grainsize; it is 0.24 to 1.24 mm.  
+In this case, a difference in 1 unit of grain size (mm) corresponds to a increase in the probability of spider presence of 128% since 5.1/4 = 1.28. (*100 to convert to percent=128%). Notice the scale of grainsize; it is 0.24 to 1.04 mm.  
 
 ```{r model summary}
 summary(model_spider)
