@@ -1,6 +1,6 @@
 ---
 title: "GLM Binary - Spiders"
-output: html_notebook
+output: html_document
 ---
 ```{r setup, include=FALSE}
 options(scipen = 1, digits = 2) #changes outputs to to decimal places.
@@ -53,6 +53,7 @@ x <- predict(model_spider)
 y <- resid(model_spider)
 binnedplot(x, y)
 ```
+
 The grey lines in the plot indicate ±2 standard errors, within which approximately 95% of the binned residuals are expected to fall.
 
 ```{r spider model coefficients}
@@ -65,7 +66,7 @@ confint(model_spider)
 Interpret the slope of the logistic regression. Dividing the slope coefficient by four will give us an approximate estimate for the maximum predicted effect on the response of a unit change in the predictor. Slope of grainsize variable is 5.1.
 \
 \
-In this case, a difference in 1 unit of grain size (mm) corresponds to a increase in the probability of switching of 128% since 5.1/4 = 1.28. (*100 to convert to percent=128%). Notice the scale of grainsize; it is 0.24 to 1.24 mm.  
+In this case, a difference in 1 unit of grain size (mm) corresponds to a increase in the probability of spider presence of 128% since 5.1/4 = 1.28. (*100 to convert to percent=128%). Notice the scale of grainsize; it is 0.24 to 1.24 mm.  
 
 ```{r model summary}
 summary(model_spider)

@@ -5,8 +5,6 @@ output:
   html_document:
     toc: yes
     df_print: paged
-  html_notebook:
-    toc: yes
 ---
 ```{r setup, include=FALSE}
 options(scipen = 1, digits = 2) #changes outputs to to decimal places.
@@ -14,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 packages_needed <- c("ggplot2", # graphics
                      "arm", # display() etc.
                      "ggfortify", # check model assumptions
+                     "performance", # check model assumptions
                      "AICcmodavg", #average AIC models
                      "grid" #arrange objects
                      )
@@ -25,6 +24,7 @@ if(length(pk_to_install)>0 ){
 library(ggplot2)
 library(arm)
 library(ggfortify)
+library(performance)
 library(AICcmodavg)
 library(grid)
 ```
@@ -163,7 +163,8 @@ small coefficient values by rescaling distance in hundreds of meters.
 ```{r Figure 9.3}
 wells$dist100 <- wells$dist/100
 fit.1 <- glm(switch~dist100, data=wells, binomial(link="logit"))
-autoplot(fit.1)
+#autoplot(fit.1) uses ggfortify
+performance::check_model(fit.1)
 ```
 
 The logistic link function is the default for the binomial variance function.
@@ -207,7 +208,7 @@ ggplot(wells, aes(dist,switch)) +
 We can look at the effect of arsenic concentration in a similar way:
 ```{r}
 fit.2 <- glm(switch~arsenic, binomial(link="logit"), data= wells)
-display(fit.2)
+arm::display(fit.2)
 ```
 Once again, the estimates are in logits with a clear positive effect of increasing
 arsenic concentration on the probability of switching wells, as expected.
@@ -229,7 +230,7 @@ wells$c.dist100 <- wells$dist100 - mean(wells$dist100)
 wells$c.arsenic <- wells$arsenic - mean(wells$arsenic)
 fit.5 <- glm(switch~c.dist100+c.arsenic+c.dist100:c.arsenic,
 binomial, data= wells)
-display(fit.5) # model numbering from Gelman and Hill
+arm::display(fit.5) # model numbering from Gelman and Hill
 ```
 The coefficients are all given on the **logit scale**. <span style="color:blue">Back-transforming the estimate for the intercept (using the `invlogit()` function displayed below) gives the probability of switching</span>—because we have centered both variables this is the probability of switching at average arsenic levels and average distance to the nearest safe well:
 
@@ -295,6 +296,7 @@ to 0.5.
 
 For example, in the model Pr(Bush support) = logit^-1(-1.40 + 0.33 · income), we can divide 0.33/4 to get 0.08: a difference of 1 in income category corresponds to no more than an 8% positive difference in the *probability* of supporting Bush.
 
-3. Interpretation of coefficients as odds ratios
+3. Interpretation of coefficients as odds ratios (TBD).
 
-TBD.
+Interpreting the slope coefficient in a binary GLM is a little bit mind bending. This might help:
+https://quantifyinghealth.com/interpret-logistic-regression-coefficients/
