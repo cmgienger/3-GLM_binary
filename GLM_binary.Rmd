@@ -56,7 +56,7 @@ data(beetle) # from AICcmodavg
 beetle$Number_survived <- beetle$Number_tested - beetle$Number_killed
 ```
 
-When binomial count data are expressed as proportions the mean must
+When binomial count data are expressed as proportions, the mean must
 asymptote towards zero (the minimum possible value) and one (the maximum),
 and this floor and ceiling also constrain the variance. This means
 we would expect to need some sort of ‘S-shaped’ relationship to model the
@@ -75,13 +75,11 @@ So why not simply use the logit transformation and analyse the resulting logits 
 
 We use the **family** argument to specify the **binomial** distribution
 (for which the logistic is the default link function). The logistic
-link function and binomial distribution take account of the properties and constraints on the pattern of the mean and variance for binomial count
-data.
+link function and binomial distribution take account of the properties and constraints on the pattern of the mean and variance for binomial count data.
 
 ```{r}
 m1 <- glm(cbind(Number_killed, Number_survived) ~ Dose, data= beetle, family= binomial)
 ```
-
 
 ```{r}
 #wr <- glm(Mortality_rate~Dose, data= beetle, family= binomial, weight= Number_tested)
@@ -89,9 +87,9 @@ m1 <- glm(cbind(Number_killed, Number_survived) ~ Dose, data= beetle, family= bi
 ```
 
 ```{r message=FALSE, warning=FALSE}
-ggplot(beetle,aes(Dose,Mortality_rate)) +
+ggplot(beetle, aes(Dose,Mortality_rate)) +
   geom_point() +
-  geom_smooth(method="glm", method.args=list(family="binomial"(link="logit")))+
+  geom_smooth(method="glm", method.args=list(family="binomial"(link="logit")), se=FALSE)+
   geom_hline(yintercept = mean(beetle$Mortality_rate), linetype = "dashed") +
   labs(title="GLM, binomial count (live/die)")
 ```
@@ -103,8 +101,7 @@ concentration of carbon disulphide (Dose).The CI for the slope does not contain 
 coef(m1)
 confint(m1)
 ```
-***The logistic curve is linear on the logit scale*** and the coefficients are the regression intercept (14.6) and slope (0.25) of this line. The `summary()` function output gives the same result in a slightly different form. Lets check the assumption that the ratio of the residual deviance to the residual DF (which R calls the **dispersion parameter**) is approximately 1:1. In this case it is a
-little higher (8.43/6=1.4), as we can see from the last line of the `summary()` function output:
+***The logistic curve is linear on the logit scale*** and the coefficients are the regression intercept (14.6) and slope (0.25) of this line. The `summary()` function output gives the same result in a slightly different form. Lets check the assumption that the ratio of the residual deviance to the residual DF (which R calls the **dispersion parameter**) is approximately 1:1. In this case it is a little higher (8.43/6=1.4), as we can see from the last line of the `summary()` function output:
 
 ```{r}
 summary(m1)
@@ -122,17 +119,19 @@ summary(mq1)
 
 Notice how the standard errors of the quasibinomial are increased compared with those from the binomial GLM to take account of the overdispersion.
 
-However, one disadvantage of quasi-maximum likelihood is that because we have a
-quasi-likelihood rather than a true likelihood we are not given a value for
-the Akaike information criterion (AIC; although, as we will see later, some
+However, one disadvantage of quasi-maximum likelihood is that because we have a quasi-likelihood rather than a true likelihood we are not given a value for the Akaike information criterion (AIC; although, as we will see later, some
 statisticians are willing to calculate quasi-AIC values and there are R packages that provide them, including the `AICcmodavg` package used here).
-
+\
+\
+\
 **Summary: Binomial Count Data**
 
 * use of the `glm()` function for analysing binomial count data illustrated how we have to bind together the successes and failures for the response variable and specify the binomial distribution using the `family` argument.
 
 * We can check whether the level of variability is as assumed by the binomial distribution model and inflate the standard errors to account for any overdispersion using a quasi-maximum likelihood approach.
-
+\
+\
+\
 **Binary Data**
 
 Binary data are an extreme form of binomial count data in which the binomial
@@ -274,7 +273,10 @@ summary(fit.5)
 * In this case, the GLM of the binary wells data reveals a positive effect of arsenic concentration on the probability of switching wells and a negative effect of distance to the nearest safe well.
 
 * There is a marginal negative interaction that suggests that each effect slightly reduces the effect of the other (the effect of distance to the nearest well is a bit reduced as arsenic concentration increases and the effect of arsenic concentration is slightly moderated as distance to the nearest safe well increases).
-
+\
+\
+\
+\
 **Notes on Interpreting Logistic Coefficients** (Gelman and Hill 2006 and https://bookdown.org/jefftemplewebb/IS-6489/logistic-regression.html)
 
 The  x  values, ranging from -6 to 6, are compressed by the inverse logit function into the 0-1 range. The inverse logit is curved, so the expected difference in  y  corresponding to a fixed difference in  x  is not constant. At low values and high values of  x  a unit change corresponds to very little change in  y , whereas in the middle of the curve a small change in  x  corresponds to a relatively large change in  y . In linear regression the expected difference in  y  corresponding to a fixed difference in  x  is, by contrast, constant. **Thus, when we interpret logistic results we must choose where on the curve we want to evaluate the probability of the outcome, given the model.**
