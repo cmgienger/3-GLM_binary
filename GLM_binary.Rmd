@@ -163,8 +163,8 @@ small coefficient values by rescaling distance in hundreds of meters.
 ```{r Figure 9.3}
 wells$dist100 <- wells$dist/100
 fit.1 <- glm(switch~dist100, data=wells, binomial(link="logit"))
-#autoplot(fit.1) uses ggfortify
-performance::check_model(fit.1)
+autoplot(fit.1) #uses ggfortify
+#performance::check_model(fit.1)
 ```
 
 The logistic link function is the default for the binomial variance function.
